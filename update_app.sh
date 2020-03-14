@@ -14,7 +14,7 @@ die() {
 	echo "Update app list ok."
 
 	# download and install app
-	sudo apt-get dist-upgrade || die "download or install Failed!"
+	sudo apt-get dist-upgrade -y || die "download or install Failed!"
 	echo "Update app ok."
 
 	# auto remove not used app
