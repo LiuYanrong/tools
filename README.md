@@ -1,4 +1,4 @@
-# Tools on the bahs
+# Tools on the bash
 
 ## contents
 
