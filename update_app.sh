@@ -18,10 +18,10 @@ die() {
 	echo "Update app ok."
 
 	# auto remove not used app
-	sudo apt-get autoremove || die "Auto remove Failed!"
+	sudo apt-get autoremove -y || die "Auto remove Failed!"
 	echo "Auto remove ok."
 
 	# auto clean
-	sudo apt-get autoclean || die "Auto clean Failed!"
+	sudo apt-get autoclean -y || die "Auto clean Failed!"
 	echo "Auto clean ok."
 	
