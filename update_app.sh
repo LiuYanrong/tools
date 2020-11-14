@@ -8,20 +8,38 @@ die() {
 	echo ERROR: "$@"
 	exit 1
 }
-
+	USER=`whoami`
+	echo $USER	
+	
 	# update app list
-	sudo apt-get update || die "apt updae Failed!"
+	if [ "root" == $USER ]; then
+		apt-get update || die "apt updae Failed!"
+	else
+		sudo apt-get update || die "apt updae Failed!"
+	fi
 	echo "Update app list ok."
 
 	# download and install app
-	sudo apt-get dist-upgrade -y || die "download or install Failed!"
+	if [ "root" == $USER ]; then
+		apt-get dist-upgrade -y || die "download or install Failed!"
+	else
+		sudo apt-get dist-upgrade -y || die "download or install Failed!"
+	fi
 	echo "Update app ok."
 
 	# auto remove not used app
-	sudo apt-get autoremove -y || die "Auto remove Failed!"
+	if [ "root" == $USER ]; then
+		apt-get autoremove -y || die "Auto remove Failed!"
+	else
+		sudo apt-get autoremove -y || die "Auto remove Failed!"
+	fi
 	echo "Auto remove ok."
 
 	# auto clean
-	sudo apt-get autoclean -y || die "Auto clean Failed!"
+	if [ "root" == $USER ]; then
+		apt-get autoclean -y || die "Auto clean Failed!"
+	else
+		sudo apt-get autoclean -y || die "Auto clean Failed!"
+	fi
 	echo "Auto clean ok."
 	
