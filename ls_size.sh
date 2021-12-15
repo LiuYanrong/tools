@@ -6,18 +6,19 @@ if [[ $# -eq 1 ]]; then
 	echo "cd ${1}"
 fi
 
-LS="ls"
-DU="du"
-if [[ `whoami` == "root" ]]; then
-	LS="sudo ls"
-	DU="sudo du"
-fi
 
-echo $DU $LS
 
-for i in `ls`; do
+USER=`whoami`
+echo $USER
+
+exit 1
+
+LS=`ls`
+DU=`du`
+
+for i in `$LS`; do
 	if [[ -f "$i" ]]; then
-		RET=`$LS -h $i`		
+		RET=`$DU -h $i`		
 		echo "FILE    "$RET
 		
 	elif [[ -d "$i" ]]; then
