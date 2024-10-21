@@ -7,6 +7,11 @@ LS_FLAG=""
 LS="ls"
 DU="du"
 
+die(){
+	echo "$1"
+	exit 1
+}
+
 while [ -n "$1" ]
 do
   case "$1" in
