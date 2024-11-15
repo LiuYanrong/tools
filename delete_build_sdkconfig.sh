@@ -14,7 +14,7 @@ function delete_build_dirs_and_files() {
             fi
         elif [ -f "$file" ]; then
             # Delete "sdkconfig" files
-            if [ "$(basename "$file")" == "sdkconfig" ]; then
+            if [ "$(basename "$file")" == "sdkconfig" ] || [ "$(basename "$file")" == "dependencies.lock" ]; then
                 echo "Removing file: $file"
                 rm -f "$file"
             fi
