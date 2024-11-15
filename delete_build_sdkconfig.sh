@@ -6,7 +6,7 @@ function delete_build_dirs_and_files() {
     do
         if [ -d "$file" ]; then
             # Delete "build" directories
-            if [ "$(basename "$file")" == "build" ]; then
+            if [ "$(basename "$file")" == "build" ] || [ "$(basename "$file")" == "managed_components" ]; then
                 echo "Removing directory: $file"
                 rm -rf "$file"
             else
