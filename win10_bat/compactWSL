@@ -1,0 +1,48 @@
+@echo off
+
+REM Automatically run script with administrator privileges
+%1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
+cd /d "%~dp0"
+
+REM Define variables
+set VHDX_FILE=ext4.vhdx
+
+echo Compressing WSL virtual hard disk file...
+echo Target file: %VHDX_FILE%
+echo.
+
+REM Check if running with administrator privileges
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+    echo Error: Please run this script with administrator privileges
+    pause
+    exit /b 1
+)
+
+echo Step 1: Shutting down all WSL instances...
+wsl --shutdown
+if %errorLevel% neq 0 (
+    echo Warning: WSL shutdown command failed, continuing execution...
+)
+echo WSL has been shut down
+echo.
+
+echo Step 2-8: Compressing virtual hard disk using diskpart...
+(
+echo select vdisk file="%VHDX_FILE%"
+echo attach vdisk readonly
+echo compact vdisk
+echo detach vdisk
+echo exit
+) | diskpart
+
+if %errorLevel% equ 0 (
+    echo.
+    echo Compression completed!
+) else (
+    echo.
+    echo Error occurred during compression, please check file path and permissions
+)
+
+echo.
+pause
